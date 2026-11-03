@@ -29,14 +29,13 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Unpack phone build kit and Android project
+      - name: Unpack Android project
         run: |
-          test -f SNX_Mockups_v0.2_Phone_Build_Kit.zip
-          mkdir -p build-kit android-project
-          unzip -q SNX_Mockups_v0.2_Phone_Build_Kit.zip -d build-kit
-          PROJECT_ZIP="$(find build-kit -type f -name 'SNX_Mockups_v0.2_Android_Project.zip' -print -quit)"
-          test -n "$PROJECT_ZIP"
-          unzip -q "$PROJECT_ZIP" -d android-project
+          test -f SNX_Mockups_v0.2_Android_Project.zip
+          mkdir -p android-project
+          unzip -q SNX_Mockups_v0.2_Android_Project.zip -d android-project
+          find android-project -maxdepth 3 -type f | head -40
+          test -f android-project/settings.gradle || test -f android-project/settings.gradle.kts
 
       - name: Build debug APK
         working-directory: android-project
