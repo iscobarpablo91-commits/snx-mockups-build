@@ -5,7 +5,6 @@ on:
   push:
     paths:
       - 'SNX_Mockups_v0.4_Android_Project.zip'
-      - '.github/workflows/build-apk.yml'
 
 jobs:
   build:
@@ -26,8 +25,7 @@ jobs:
           gradle-version: '8.9'
 
       - name: Extract Android project
-        run: |
-          unzip SNX_Mockups_v0.4_Android_Project.zip -d project
+        run: unzip SNX_Mockups_v0.4_Android_Project.zip -d project
 
       - name: Build debug APK
         working-directory: project
