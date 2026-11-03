@@ -29,21 +29,21 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Unpack Android project
+      - name: Unpack v0.3 Android project
         run: |
-          test -f SNX_Mockups_v0.2_Android_Project.zip
+          test -f SNX_Mockups_v0.3_Android_Project.zip
           mkdir -p android-project
-          unzip -q SNX_Mockups_v0.2_Android_Project.zip -d android-project
-          find android-project -maxdepth 3 -type f | head -40
-          test -f android-project/settings.gradle || test -f android-project/settings.gradle.kts
+          unzip -q SNX_Mockups_v0.3_Android_Project.zip -d android-project
+          PROJECT_DIR="$(dirname "$(find android-project -type f \( -name settings.gradle -o -name settings.gradle.kts \) -print -quit)")"
+          test -n "$PROJECT_DIR"
+          echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
 
       - name: Build debug APK
-        working-directory: android-project
-        run: gradle --no-daemon assembleDebug
+        run: gradle --no-daemon -p "$PROJECT_DIR" assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SNX-Mockups-debug-APK
-          path: android-project/app/build/outputs/apk/debug/app-debug.apk
+          name: SNX-Mockups-v0.3-debug-APK
+          path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
