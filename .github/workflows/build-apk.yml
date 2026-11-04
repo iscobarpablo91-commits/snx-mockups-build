@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'SNX_Mockups_v0.4_Android_Project.zip'
+      - 'SNX_Mockups_v1.0_Android_Project.zip'
       - 'android-patches/styles.xml'
       - '.github/workflows/build-apk.yml'
 
@@ -27,7 +27,7 @@ jobs:
           gradle-version: '8.9'
 
       - name: Extract Android project
-        run: unzip SNX_Mockups_v0.4_Android_Project.zip -d project
+        run: unzip SNX_Mockups_v1.0_Android_Project.zip -d project
 
       - name: Add missing app theme resource
         run: |
@@ -41,6 +41,6 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SNX-Mockups-debug-APK
+          name: SNX-Mockups-v1.0-debug-APK
           path: project/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
