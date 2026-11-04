@@ -1,3 +1,4 @@
+# Rebuild v1.1 after the project archive is uploaded.
 name: Build SNX Mockups APK
 
 on:
