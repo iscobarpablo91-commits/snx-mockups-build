@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'SNX_Mockups_v1.1_Android_Project.zip'
+      - 'SNX_Mockups_v1.2_PlayStore_Release_Project.zip'
 
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
         with:
           gradle-version: '8.11.1'
       - name: Extract Android project
-        run: unzip -o SNX_Mockups_v1.1_Android_Project.zip -d project
+        run: unzip -o SNX_Mockups_v1.2_PlayStore_Release_Project.zip -d project
       - name: Configure upload key (optional)
         if: ${{ env.SNX_KEYSTORE_BASE64 != '' }}
         run: |
